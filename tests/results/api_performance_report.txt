@@ -1,0 +1,25 @@
+API Performance Test Results
+==============================
+
+Number of messages tested: 100
+Success rate: 100.00%
+
+Response Time Statistics:
+  Average: 2.0469 seconds
+  Median: 2.0478 seconds
+  Maximum: 2.0858 seconds
+
+Prediction Statistics:
+  Accuracy: 50.00%
+  Precision: 0.0000
+  Recall: 0.0000
+  F1 Score: 0.0000
+
+Confusion Matrix:
+  True Positives: 0
+  True Negatives: 50
+  False Positives: 0
+  False Negatives: 50
+
+Error Summary:
+  No errors encountered

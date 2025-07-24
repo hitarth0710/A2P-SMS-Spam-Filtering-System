@@ -1,0 +1,17 @@
+# config/config.yaml
+whitelisted_domains:
+  - example.com
+  - safe-site.net
+  - trip.com
+  - icicibank.com
+  - bank.com
+  - secure-pay.com
+  - officialstore.com
+
+whitelisted_phrases:
+  - Your OTP is
+  - Thank you for shopping with
+  - Your verification code is
+  - Order confirmation
+  - Account verification
+  - Your transaction ID

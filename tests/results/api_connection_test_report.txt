@@ -1,0 +1,14 @@
+API Connection Test Results
+==============================
+
+Total messages tested: 1000
+Successful responses: 1000
+Failed responses: 0
+Success rate: 100.00%
+
+Response Time Statistics:
+  Average: 0.0170 seconds
+  Median: 0.0171 seconds
+  Minimum: 0.0077 seconds
+  Maximum: 0.0534 seconds
+

@@ -1,0 +1,24 @@
+SMS Spam Filter Model Performance Evaluation
+==================================================
+
+Accuracy: 0.9941
+Precision: 1.0000
+Recall: 0.7500
+F1 Score: 0.8571
+AUC: 1.0000
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.99      1.00      1.00       824
+           1       1.00      0.75      0.86        20
+
+    accuracy                           0.99       844
+   macro avg       1.00      0.88      0.93       844
+weighted avg       0.99      0.99      0.99       844
+
+Confusion Matrix:
+True Negatives (TN): 824
+False Positives (FP): 0
+False Negatives (FN): 5
+True Positives (TP): 15
