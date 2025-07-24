@@ -2,38 +2,70 @@
 
 ## Project Overview
 
-A lightweight AI-based spam filtering system for A2P (Application-to-Person) SMS messages that classifies messages into **Transactional**, **Promotional**, and **Spam** categories. The system incorporates a whitelisting mechanism for trusted domains and phrases to minimize false positives and exposes filtering logic via a REST API.
+A lightweight AI-based spam filtering system for A2P (Application-to-Person) SMS messages. The system classifies messages into **Transactional**, **Promotional**, and **Spam** categories, incorporates a whitelisting mechanism for trusted domains and phrases to minimize false positives, and exposes filtering logic via a REST API.
 
-## Video Explanation 
-Link :- https://www.loom.com/share/86c081c48d7147d481fd684caac6251d?sid=93456197-9f5a-4977-8f30-38d596c33168
+---
+
+## Video Explanation
+
+Link: *[Add your video link here]*
+
+---
+
+## Features
+
+- **Multi-class SMS classification**: Transactional, Promotional, Spam
+- **Whitelist support**: Trusted domains and phrases bypass filtering
+- **REST API**: Real-time message classification
+- **Configurable**: Easily update whitelist entries via YAML
+- **Logging**: Tracks API requests, predictions, and errors
+- **Docker-ready**: Containerized for easy deployment
+- **Unit & API Testing**: Automated test suite for reliability
+
+---
 
 ## Quick Start
 
-### Training the Model
+### 1. Clone the Repository
 
-1. **Preprocess and train:**
+```bash
+git clone <your_repository_url>
+cd A2P-SMS-Spam-Filtering-System
+```
+
+### 2. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Prepare Data & Train Model
+
 ```bash
 python main.py --train
 ```
+- Preprocesses `data/raw/message_dataset_50k.csv`
+- Trains a Multinomial Naive Bayes classifier (TF-IDF features)
+- Saves model to `data/models/model.pkl`
 
-This will:
-- Preprocess the dataset from `data/raw/message_dataset_50k.csv`
-- Train a Multinomial Naive Bayes classifier with TF-IDF vectorization
-- Save the trained model to `data/models/model.pkl`
-
-### Running the API
+### 4. Run the API Server
 
 ```bash
 python main.py --api --host 0.0.0.0 --port 8000
 ```
 
-Or using Docker:
+Or with Docker:
+
 ```bash
 docker build -t sms-filter .
 docker run -p 8000:8000 sms-filter
 ```
 
-## Adding Whitelist Entries
+---
+
+## Configuration
+
+### Whitelist Entries
 
 Edit [`config/config.yaml`](config/config.yaml):
 
@@ -49,20 +81,22 @@ whitelisted_phrases:
   - "Order confirmation"
 ```
 
-The system automatically reloads configuration on startup.
+*Changes take effect on API restart.*
+
+---
 
 ## API Usage
 
 **Endpoint:** `POST /check_sms`
 
-**Request:**
+**Request Example:**
 ```json
 {
   "message": "Your OTP is 123456. Do not share it."
 }
 ```
 
-**Response:**
+**Response Example:**
 ```json
 {
   "verdict": "allowed",
@@ -71,7 +105,7 @@ The system automatically reloads configuration on startup.
 }
 ```
 
-**Example with curl:**
+**Curl Example:**
 ```bash
 curl -X POST http://localhost:8000/check_sms \
   -H "Content-Type: application/json" \
@@ -83,52 +117,128 @@ curl -X POST http://localhost:8000/check_sms \
 - `reason`: `"whitelisted"` or `"ai"`
 - `category`: `"Transactional"`, `"Promotional"`, or `"Spam"`
 
+**Health Check:**  
+`GET /health` returns API status.
+
+---
+
 ## Project Structure
 
 ```
 A2P-SMS-Spam-Filtering-System/
 ├── api/
-│   └── app.py                          # Flask REST API server
+│   └── app.py
 ├── config/
-│   └── config.yaml                     # Whitelist configuration (domains & phrases)
+│   └── config.yaml
 ├── data/
 │   ├── models/
-│   │   └── model.pkl                   # Trained ML model (auto-generated)
+│   │   └── model.pkl
 │   ├── processed/
-│   │   └── labeled_messages.csv        # Preprocessed dataset (auto-generated)
+│   │   └── labeled_messages.csv
 │   └── raw/
-│       └── message_dataset_50k.csv     # Original 50K SMS dataset with labels
+│       └── message_dataset_50k.csv
 ├── logs/
-│   ├── app.log                         # Application runtime logs
-│   ├── filter.log                      # Legacy application logs (auto-generated)
+│   ├── app.log
+│   ├── filter.log
 ├── notebooks/
-│   └── spam.ipynb                      # Jupyter notebook for development/analysis
+│   └── spam.ipynb
 ├── src/
 │   ├── data/
-│   │   └── preprocessing.py            # Data cleaning & feature extraction
+│   │   └── preprocessing.py
 │   ├── models/
-│   │   └── sms_filter.py              # Core SMS classification service
+│   │   └── sms_filter.py
 │   └── utils/
-│       └── whitelist.py               # Whitelist management utilities
+│       └── whitelist.py
 ├── tests/
-│   ├── results/                        # Containg report from testing
-│   ├── test_api.py                     # API endpoint tests
-│   ├── test_model.py           # Model tests
-├── Dockerfile                          # Container deployment configuration
-├── main.py                            # Application entry point & CLI
-├── requirements.txt                   # Python dependencies
-└── run.log                            # Running Flask API
-|__ request.json
+│   ├── results/
+│   │   └── evaluation_results.txt
+│   ├── test_api.py
+│   ├── test_model.py
+├── Dockerfile
+├── main.py
+├── requirements.txt
+├── run.log
+└── request.json
 ```
+
+---
+
+## Testing
+
+- All tests are in the `tests/` folder.
+- Run tests with:
+  ```bash
+  pytest tests/
+  ```
+- Test results and evaluation metrics are saved in `tests/results/evaluation_results.txt`.
+
+---
+
+## Logging
+
+- **API logs**: `logs/app.log`
+- **Model/classification logs**: `logs/filter.log`
+- **Run logs**: `run.log`
+- Logs include request details, predictions, whitelist matches, and errors.
+
+---
+
+## Dataset
+
+- **Raw data**: `data/raw/message_dataset_50k.csv`
+- **Processed/labeled data**: `data/processed/labeled_messages.csv`
+- **Model file**: `data/models/model.pkl`
+
+---
+
+## Notebook
+
+- [`notebooks/spam.ipynb`](notebooks/spam.ipynb):  
+  Contains data exploration, preprocessing, model training, and evaluation steps.
+
+---
 
 ## Dependencies
 
+Main dependencies:
+- Flask
+- scikit-learn
+- pandas
+- joblib
+- pyyaml
+- pytest
+
+Install with:
 ```bash
 pip install -r requirements.txt
 ```
 
-Main dependencies: Flask, scikit-learn, pandas, joblib, pyyaml
+---
+
+## Docker Deployment
+
+Build and run the container:
+```bash
+docker build -t sms-filter .
+docker run -p 8000:8000 sms-filter
+```
 
 ---
 
-**Health Check:** `GET /health` - Returns API status
+## Contribution
+
+Feel free to open issues or submit pull requests for improvements, bug fixes, or new features.
+
+---
+
+## License
+
+*Specify your license here (e.g., MIT, Apache 2.0, etc.)*
+
+---
+
+## Contact
+
+For questions or support, contact: *[your-email@example.com]*
+
+---
