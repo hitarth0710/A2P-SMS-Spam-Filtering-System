@@ -8,7 +8,7 @@ A lightweight AI-based spam filtering system for A2P (Application-to-Person) SMS
 
 ## Video Explanation
 
-Link: *[Add your video link here]*
+Link: *[https://www.loom.com/share/d3f95b4a7bb84d4e84686b38f7efbedb?sid=dd15628c-c9bf-4d43-a235-9ec30e12bf2f]*
 
 ---
 
