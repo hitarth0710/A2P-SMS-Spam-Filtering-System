@@ -4,6 +4,9 @@
 
 A lightweight AI-based spam filtering system for A2P (Application-to-Person) SMS messages that classifies messages into **Transactional**, **Promotional**, and **Spam** categories. The system incorporates a whitelisting mechanism for trusted domains and phrases to minimize false positives and exposes filtering logic via a REST API.
 
+## Video Explanation 
+Link :- 
+
 ## Quick Start
 
 ### Training the Model
